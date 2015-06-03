@@ -1,0 +1,89 @@
+.TH RMQ 8l "07 February r1.25
+.SH NAME
+.B rmq
+- checks the mail queue on a remote server.
+.SH SYNOPSIS
+\fBrmq \fR[\fB-c \fI<config>\fR] [\fB-d\fR] [\fB-v\fR] [\fB-V\fR] <\fIclientid\fB>
+.br
+.SH AVAILABILITY
+.B rmq
+is a Bourne shell script which should work equally well on all versions of UNIX,
+Linux and Mac OS X.
+.SH DESCRIPTION
+.B rmq
+uses 
+.B ssh
+and 
+.B sudo
+where necessary to return a summary of the current mail queue on a remote
+server.
+The configuration file (\fI/usr/local/etc/rmq.cf\fR by default) is used to
+determine the mail transfer agent on the remote host and relevant hostname
+using the "\fIclient id\fR" supplied on the command line. If the configuration
+file does not exist or there is no entry for the client id supplied,
+.B rmq
+will assume that "\fIclient id\fR" = "\fIhostname\fR".
+.LP
+The script assumes that trying to use root to probe remote systems will
+lead to problems so attempts to run with an id less than 500 cause an
+error and the script terminates.
+.SH OPTIONS
+.TP 5
+.B -c
+.I <config_file>
+Use the named configuration file in preference to the default 
+"\fI/usr/local/etc/rmq.cf\fR".
+.TP 5
+\fB-d\fR
+Start in debug mode.
+The script will run in a shell with the 
+.B -x
+option set.
+.TP 5
+.B -l
+The summary returned is logged using the local 
+.B syslog
+facility. This is particularly useful for compiling reports on the number
+of checks made and facilitates calculation of the average queue length.
+.TP 5
+.B -v
+Set verbose mode. Ordinarily 
+.B rmq
+operates silently unless problems are detected. In 
+.I verbose
+mode 
+.B rmq
+reports on each significant action and returns a list of items in the
+queue.
+.TP 5
+.B -V
+Print version details and exit.
+.SH EXAMPLES
+.IP
+.ft CW
+rmq -l  billpayers
+.ft R
+.LP
+Using the client id  "\fIbillpayers\fR" as the look up key,
+.B rmq
+will extract the details of the remote host and mail transport agent
+being used.
+.SH FILES
+.IR /usr/local/etc/rmq.cf
+.SH BUGS
+The script has more error checking than most but is still quite crude
+having been developed to resolve specific client issues.
+File permissions are critical and 
+.B sudo
+is be used execute commands where 
+.B root
+privileges are required.
+.SH SEE ALSO
+.IR backup ,
+.IR chkftpd ,
+.IR chkfw ,
+.IR chkup ,
+.IR report ,
+.IR rhost .
+.SH AUTHOR
+Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
