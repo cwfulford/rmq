@@ -1,186 +1,145 @@
-
-<p><a href="#heading1">NAME</a><br/>
-<a href="#heading2">SYNOPSIS</a><br/>
-<a href="#heading3">AVAILABILITY</a><br/>
-<a href="#heading4">DESCRIPTION</a><br/>
-<a href="#heading5">OPTIONS</a><br/>
-<a href="#heading6">EXAMPLES</a><br/>
-<a href="#heading7">FILES</a><br/>
-<a href="#heading8">BUGS</a><br/>
-<a href="#heading9">SEE ALSO</a><br/>
-<a href="#heading10">AUTHOR</a><br/>
-
+<h2 id="heading1">NAME</h2>
+<p class="indent">
+<b><a href="./scripts.php?script=rmq">rmq</a></b>
+- checks the mail queue on a remote server.
 </p>
-<hr/>
+<h2 id="heading2">SYNOPSIS</h2>
+<p class="indent">
 
+<b><a href="./scripts.php?script=rmq">rmq</a> </b>
+[
+<b>-c </b>
+<i>&lt;config&gt;</i>
+] [
+<b>-d</b>
+] [
+<b>-v</b>
+] [
+<b>-V</b>
+] &lt;
+<i>clientid</i>
+<b>&gt;</b>
+<br/>
+</p>
+<h2 id="heading3">AVAILABILITY</h2>
+<p class="indent">
+<b><a href="./scripts.php?script=rmq">rmq</a></b>
+is a Bourne shell script which should work equally well on all versions of UNIX,
+Linux and Mac OS X.
+</p>
+<h2 id="heading4">DESCRIPTION</h2>
+<p class="indent">
+<b><a href="./scripts.php?script=rmq">rmq</a></b>
+uses 
+<b>ssh</b>
+and 
+<b>sudo</b>
+where necessary to return a summary of the current mail queue on a remote
+server.
+The configuration file (
+<i>/usr/local/etc/<a href="./scripts.php?script=rmq.cf">rmq.cf</a></i>
+ by default) is used to
+determine the mail transfer agent on the remote host and relevant hostname
+using the "
+<i>client id</i>
+" supplied on the command line. If the configuration
+file does not exist or there is no entry for the client id supplied,
+<b><a href="./scripts.php?script=rmq">rmq</a></b>
+will assume that "
+<i>client id</i>
+" = "
+<i>hostname</i>
+".
+</p>
+<p class="indent">
+The script assumes that trying to use root to probe remote systems will
+lead to problems so attempts to run with an id less than 500 cause an
+error and the script terminates.
+</p>
+<h2 id="heading5">OPTIONS</h2>
+<p class="indent">
+</p>
+<p class="indent">
+<b>-c</b>&nbsp;&nbsp;&nbsp;
+<i>&lt;config_file&gt;</i>
+Use the named configuration file in preference to the default 
+"
+<i>/usr/local/etc/<a href="./scripts.php?script=rmq.cf">rmq.cf</a></i>
+".
+</p>
+<p class="indent">
 
-<h2 id="heading1">NAME
-</h2>
+<b>-d</b>&nbsp;&nbsp;&nbsp;
 
+Start in debug mode.
+The script will run in a shell with the 
+<b>-x</b>&nbsp;&nbsp;&nbsp;
+option set.
+</p>
+<p class="indent">
+<b>-l</b>&nbsp;&nbsp;&nbsp;
+The summary returned is logged using the local 
+<b>syslog</b>
+facility. This is particularly useful for compiling reports on the number
+of checks made and facilitates calculation of the average queue length.
+</p>
+<p class="indent">
+<b>-v</b>&nbsp;&nbsp;&nbsp;
+Set verbose mode. Ordinarily 
+<b><a href="./scripts.php?script=rmq">rmq</a></b>
+operates silently unless problems are detected. In 
+<i>verbose</i>
+mode 
+<b><a href="./scripts.php?script=rmq">rmq</a></b>
+reports on each significant action and returns a list of items in the
+queue.
+</p>
+<p class="indent">
+<b>-V</b>&nbsp;&nbsp;&nbsp;
+Print version details and exit.
+</p>
+<h2 id="heading6">EXAMPLES</h2>
+<p class="indent">
 
-<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=rmq">rmq</a></b> -
-checks the mail queue on a remote server.</p>
-
-<h2 id="heading2">SYNOPSIS
-</h2>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=rmq">rmq</a></b>
-[<b>-c</b> <i>&lt;config&gt;</i>] [<b>-d</b>] [<b>-v</b>]
-[<b>-V</b>] &lt;<i>clientid</i><b>&gt;</b></p>
-
-<h2 id="heading3">AVAILABILITY
-</h2>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=rmq">rmq</a></b> is a
-Bourne shell script which should work equally well on all
-versions of UNIX, Linux and Mac OS X.</p>
-
-<h2 id="heading4">DESCRIPTION
-</h2>
-
-
-<p style="margin-left:11%; margin-top: 1em"><b><a href="./scripts.php?script=rmq">rmq</a></b> uses
-<b>ssh</b> and <b>sudo</b> where necessary to return a
-summary of the current mail queue on a remote server. The
-configuration file (<i>/usr/local/etc/rmq.cf</i> by default)
-is used to determine the mail transfer agent on the remote
-host and relevant hostname using the &quot;<i>client
-id</i>&quot; supplied on the command line. If the
-configuration file does not exist or there is no entry for
-the client id supplied, <b><a href="./scripts.php?script=rmq">rmq</a></b> will assume that
-&quot;<i>client id</i>&quot; =
-&quot;<i>hostname</i>&quot;.</p>
-
-<p style="margin-left:11%; margin-top: 1em">The script
-assumes that trying to use root to probe remote systems will
-lead to problems so attempts to run with an id less than 500
-cause an error and the script terminates.</p>
-
-<h2 id="heading5">OPTIONS
-</h2>
-
-
-<table width="100%" border="0" rules="none" frame="void"
-       cellspacing="0" cellpadding="0">
-<colgroup><col width="11%"></col>
-<col width="3%"></col>
-<col width="4%" class="center"></col>
-<col width="82%"></col>
-</colgroup>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p style="margin-top: 1em"><b>-c</b></p></td>
-<td></td>
-<td>
-
-
-<p style="margin-top: 1em"><i>&lt;config_file&gt;</i> Use
-the named configuration file in preference to the default
-&quot;<i>/usr/local/etc/rmq.cf</i>&quot;.</p> </td></tr>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-d</b></p></td>
-<td></td>
-<td>
-
-
-<p>Start in debug mode. The script will run in a shell with
-the <b>-x</b> option set.</p></td></tr>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-l</b></p></td>
-<td></td>
-<td>
-
-
-<p>The summary returned is logged using the local
-<b>syslog</b> facility. This is particularly useful for
-compiling reports on the number of checks made and
-facilitates calculation of the average queue length.</p></td></tr>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-v</b></p></td>
-<td></td>
-<td>
-
-
-<p>Set verbose mode. Ordinarily <b><a href="./scripts.php?script=rmq">rmq</a></b> operates
-silently unless problems are detected. In <i>verbose</i>
-mode <b><a href="./scripts.php?script=rmq">rmq</a></b> reports on each significant action and
-returns a list of items in the queue.</p></td></tr>
-<tr valign="top" align="left">
-<td></td>
-<td>
-
-
-<p><b>-V</b></p></td>
-<td></td>
-<td>
-
-
-<p>Print version details and exit.</p></td></tr>
-</table>
-
-<h2 id="heading6">EXAMPLES
-</h2>
-
-
-<p style="margin-left:22%; margin-top: 1em"><tt><a href="./scripts.php?script=rmq">rmq</a> -l
-billpayers</tt></p>
-
-<p style="margin-left:11%; margin-top: 1em">Using the
-client id &quot;<i>billpayers</i>&quot; as the look up key,
-<b><a href="./scripts.php?script=rmq">rmq</a></b> will extract the details of the remote host and
-mail transport agent being used.</p>
-
-<h2 id="heading7">FILES
-</h2>
-
-
-
-<p style="margin-left:11%; margin-top: 1em"><i>/usr/local/etc/<a href="./scripts.php?script=rmq.cf">rmq.cf</a></i></p>
-
-<h2 id="heading8">BUGS
-</h2>
-
-
-<p style="margin-left:11%; margin-top: 1em">The script has
-more error checking than most but is still quite crude
+</p><div class="cmdline">
+<pre>
+rmq -l  billpayers
+</pre></div>
+<p class="indent">
+</p>
+<p class="indent">
+Using the client id  "
+<i>billpayers</i>
+" as the look up key,
+<b>rmq</b>
+will extract the details of the remote host and mail transport agent
+being used.
+</p>
+<h2 id="heading7">FILES</h2>
+<p class="indent">
+.IR /usr/local/etc/<a href="./scripts.php?script=rmq.cf">rmq.cf</a>
+</p>
+<h2 id="heading8">BUGS</h2>
+<p class="indent">
+The script has more error checking than most but is still quite crude
 having been developed to resolve specific client issues.
-File permissions are critical and <b>sudo</b> is be used
-execute commands where <b>root</b> privileges are
-required.</p>
-
-<h2 id="heading9">SEE ALSO
-</h2>
-
-
-<p style="margin-left:11%; margin-top: 1em"><a href="./scripts.php?script=backup&amp;man=y">backup</a>,
-<a href="./scripts.php?script=chkftpd&amp;man=y">chkftpd</a>, <a href="./scripts.php?script=chkfw&amp;man=y">chkfw</a>, <a href="./scripts.php?script=chkup&amp;man=y">chkup</a>, <a href="./scripts.php?script=report&amp;man=y">report</a>,
-<a href="./scripts.php?script=rhost&amp;man=y">rhost</a>.</p>
-
-<h2 id="heading10">AUTHOR
-</h2>
-
-
-<p style="margin-left:11%; margin-top: 1em">Clifford W
-Fulford, <a href="http://www.citylinux.com"
-title="Go to the City Linux homepage">
-City Linux
-</a>. Contact <a href="mailto:fulford@fulford.net" title="Send mail to Clifford W Fulford">fulford@fulford.net</a> or +44
-(0)709 229 5385.</p>
-<hr/>
+File permissions are critical and 
+<b>sudo</b>
+is be used execute commands where 
+<b>root</b>
+privileges are required.
+</p>
+<h2 id="heading9">SEE ALSO</h2>
+<p class="indent">
+<a href="./scripts.php?script=backup&man=y"><i>backup</i>,</a>
+<a href="./scripts.php?script=chkftpd&man=y"><i>chkftpd</i>,</a>
+<a href="./scripts.php?script=chkfw&man=y"><i>chkfw</i>,</a>
+<a href="./scripts.php?script=chkup&man=y"><i>chkup</i>,</a>
+<a href="./scripts.php?script=report&man=y"><i>report</i>,</a>
+<a href="./scripts.php?script=rhost&man=y"><i>rhost</i>.</a>
+</p>
+<h2 id="heading10">AUTHOR</h2>
+<p class="indent">
+Clifford W Fulford, City Linux. Contact fulford@fulford.net or +44 (0)709 229 5385.
+</p>
+	
